@@ -1,0 +1,212 @@
+# Accounts Service Backend
+Accounts service handles authentication, registration, forgotten password, and more.  
+You can inherit from base-accounts-service and extend and develop the accounts system you need.  
+Recommend this service is not publicly available. Only serve accounts-service-frontend.
+
+# TODO List
+- [ ] Enhanced password requirements.
+- [ ] System email supports multi languages.
+
+## Quick start
+```bash
+Customize your .env file.
+$ cp ./.env.example ./.env
+Launch with docker-compose on development environment.
+$ docker-compose -f dev.yml up --build -d
+```
+
+## Endpoint
+### HealthCheck
+#### GET /healthcheck/v1/ping
+- Params
+  - None
+- Resonse
+  - 200
+	```json
+	{
+  	"message": "OK"
+	}
+	```
+
+### Auth
+#### POST /auth/v1/login
+- Params
+  - Headers
+    - Content-Type : application/json
+  - Body
+    - identity
+      - Required : True
+      - Type : String
+      - Example : "xxx@mail.com"
+    - password
+      - Required : True
+      - Type : String
+      - Example : "IamPassword"
+- Response
+  - 200
+	```json
+	{
+	  "id": "d655af53-e544-4ae7-a6b9-0f91d19b327a",
+	  "identity": "xxx@mail.com",
+	  "status": "enabled",
+	  "createdAt": "2022-07-19 07:44:29",
+	  "updatedAt": "2022-07-19 07:44:29"
+	}
+	```
+  - 400 | 401 | 403 | 404 | 500
+	```json
+	{
+	  "message": "Error Message"
+	}
+	```
+
+#### POST /auth/v1/signup/confirmation
+- Params
+  - Headers
+    - Content-Type : application/json
+  - Body
+    - email
+      - Required : True
+      - Type : String
+      - Example : "xxx@mail.com"
+    - verifyPageURL
+      - Required : True
+      - Type : String
+      - Example : "https://www.example.com/"
+- Response
+  - 202
+	```json
+	{
+	  "message": "Accepted"
+	}
+	```
+  - 400 | 401 | 403 | 409 | 500
+	```json
+	{
+	  "message": "Error Message"
+	}
+	```
+
+#### GET /auth/v1/signup/tokeninfo
+- Params
+  - Headers
+  - QueryString
+    - token
+      - Required : True
+      - Type : String
+      - Example : "JWT"
+- Response
+  - 200
+	```json
+	{
+	  "email": "xxx@mail.com"
+	}
+	```
+  - 400 | 401 | 403 | 500
+	```json
+	{
+	  "message": "Error Message"
+	}
+	```
+
+#### POST /auth/v1/signup
+- Params
+  - Headers
+    - Content-Type : application/json
+  - Body
+    - token
+      - Required : True
+      - Type : String
+      - Example : "JWT"
+    - password
+      - Required : True
+      - Type : String
+      - Example : "IamPassword"
+- Response
+  - 201
+	```json
+	{
+	  "id": "9cfa987b-022d-4461-82c6-f7f12d706163",
+	  "identity": "xxx@mail.com",
+	  "status": "enabled",
+	  "createdAt": "2022-11-01 07:08:34",
+	  "updatedAt": "2022-11-01 07:08:34"
+	}
+	```
+  - 400 | 401 | 403 | 409 | 500
+	```json
+	{
+	  "message": "Error Message"
+	}
+	```
+
+#### POST /auth/v1/forgetpassword/confirmation
+- Params
+  - Headers
+    - Content-Type : application/json
+  - Body
+    - email
+      - Required : True
+      - Type : String
+      - Example : "xxx@mail.com"
+    - verifyPageURL
+      - Required : True
+      - Type : String
+      - Example : "https://www.example.com/"
+- Response
+  - 202
+	```json
+	{
+	  "message": "Accepted"
+	}
+	```
+  - 400 | 401 | 403 | 409 | 500
+	```json
+	{
+	  "message": "Error Message"
+	}
+	```
+
+#### GET /auth/v1/forgetpassword/tokeninfo
+- Params
+  - Headers
+  - QueryString
+    - token
+      - Required : True
+      - Type : String
+      - Example : "JWT"
+- Response
+  - 200
+	```json
+	{
+	  "email": "xxx@mail.com"
+	}
+	```
+  - 400 | 401 | 403 | 500
+	```json
+	{
+	  "message": "Error Message"
+	}
+	```
+
+#### PUT /auth/v1/password
+- Params
+  - Headers
+    - Content-Type : application/json
+  - Body
+    - token
+      - Required : True
+      - Type : String
+      - Example : "JWT"
+    - password
+      - Required : True
+      - Type : String
+      - Example : "IamPassword"
+- Response
+  - 204
+  - 400 | 401 | 403 | 404 | 409 | 500
+	```json
+	{
+	  "message": "Error Message"
+	}
+	```

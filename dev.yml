@@ -1,0 +1,55 @@
+version: '3.7'
+
+networks:
+  intranet:
+
+services:
+  account-backend:
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: base-account-backend
+    ports:
+      - "9527:9527"
+    env_file:
+      - ./.env
+    restart: on-failure
+    depends_on:
+      - account-db
+      # - redis
+    networks:
+      - intranet
+
+  account-db:
+    container_name: base-dev-shared-mysql
+    platform: linux/x86_64
+    image: mysql:8.0.25
+    ports:
+     - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_USER:          admin
+      MYSQL_PASSWORD:      12345678
+    volumes:
+      - "dev_account_db:/var/lib/mysql"
+    networks:
+      - intranet
+  phpmyadmin:
+    container_name: base-dev-shared-pma
+    image: phpmyadmin/phpmyadmin
+    ports:
+     - "8008:80"
+    environment:
+      PMA_HOST: account-db
+      PMA_PORT: 3306
+    networks:
+      - intranet
+    depends_on:
+      - account-db
+
+networks:
+  intranet: 
+    name: intranet
+volumes:
+  dev_account_db:
+    external: true
