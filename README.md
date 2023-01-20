@@ -6,6 +6,8 @@ Recommend this service is not publicly available. Only serve accounts-service-fr
 # TODO List
 - [ ] Enhanced password requirements.
 - [ ] System email supports multi languages.
+- [ ] /auth/v1/signup/confirmation add new param "continue".
+- [ ] /auth/v1/signup/tokeninfo response add "continue" attribute.
 
 ## Quick start
 ```bash
