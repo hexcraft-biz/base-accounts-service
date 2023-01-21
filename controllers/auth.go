@@ -91,6 +91,7 @@ func (ctrl *Auth) Login() gin.HandlerFunc {
 type signUpEmailConfirmParams struct {
 	Email         string `json:"email" binding:"required,email,min=1,max=128"`
 	VerifyPageUrl string `json:"verifyPageURL" binding:"required,url"`
+	Continue      string `json:"continue" binding:"omitempty,url"`
 }
 
 type signUpEmailConfirmResp struct {
@@ -130,8 +131,9 @@ func (ctrl *Auth) SignUpEmailConfirm() gin.HandlerFunc {
 				ExpiresAt: expiresAt,
 				IssuedAt:  issuedAt,
 			},
-			Email: params.Email,
-			Type:  JWT_TYPE_SIGN_UP,
+			Email:    params.Email,
+			Type:     JWT_TYPE_SIGN_UP,
+			Continue: params.Continue,
 		})
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
@@ -178,7 +180,8 @@ type signUpTokenVerifyParams struct {
 }
 
 type signUpTokenVerifyResp struct {
-	Email string `json:"email"`
+	Email    string `json:"email"`
+	Continue string `json:"continue"`
 }
 
 func (ctrl *Auth) SignUpTokenVerify() gin.HandlerFunc {
@@ -204,7 +207,8 @@ func (ctrl *Auth) SignUpTokenVerify() gin.HandlerFunc {
 		}
 
 		c.AbortWithStatusJSON(http.StatusOK, signUpTokenVerifyResp{
-			Email: claims.Email,
+			Email:    claims.Email,
+			Continue: claims.Continue,
 		})
 		return
 	}
@@ -264,6 +268,7 @@ func (ctrl *Auth) SignUp() gin.HandlerFunc {
 type forgetPwdConfirmParams struct {
 	Email         string `json:"email" binding:"required,email,min=1,max=128"`
 	VerifyPageUrl string `json:"verifyPageURL" binding:"required,url"`
+	Continue      string `json:"continue" binding:"omitempty,url"`
 }
 
 type forgetPwdConfirmResp struct {
@@ -304,8 +309,9 @@ func (ctrl *Auth) ForgetPwdConfirm() gin.HandlerFunc {
 				ExpiresAt: expiresAt,
 				IssuedAt:  issuedAt,
 			},
-			Email: params.Email,
-			Type:  JWT_TYPE_FORGET_PWD,
+			Email:    params.Email,
+			Type:     JWT_TYPE_FORGET_PWD,
+			Continue: params.Continue,
 		})
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
@@ -352,7 +358,8 @@ type forgetPwdTokenVerifyParams struct {
 }
 
 type forgetPwdTokenVerifyResp struct {
-	Email string `json:"email"`
+	Email    string `json:"email"`
+	Continue string `json:"continue"`
 }
 
 func (ctrl *Auth) ForgetPwdTokenVerify() gin.HandlerFunc {
@@ -378,7 +385,8 @@ func (ctrl *Auth) ForgetPwdTokenVerify() gin.HandlerFunc {
 		}
 
 		c.AbortWithStatusJSON(http.StatusOK, forgetPwdTokenVerifyResp{
-			Email: claims.Email,
+			Email:    claims.Email,
+			Continue: claims.Continue,
 		})
 		return
 	}

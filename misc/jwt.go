@@ -10,8 +10,9 @@ type JWT struct {
 
 type EmailJwtClaims struct {
 	jwt.StandardClaims
-	Email string `json:"email"`
-	Type  string `json:"type"`
+	Email    string `json:"email"`
+	Type     string `json:"type"`
+	Continue string `json:"continue"`
 }
 
 func NewJWT(signingKey []byte) *JWT {
