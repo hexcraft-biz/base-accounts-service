@@ -162,6 +162,10 @@ $ docker-compose -f dev.yml up --build -d
       - Required : True
       - Type : String
       - Example : "https://www.example.com/"
+    - continue
+      - Required : False
+      - Type : String
+      - Example : "https://www.continue.com/"
 - Response
   - 202
 	```json
@@ -188,7 +192,8 @@ $ docker-compose -f dev.yml up --build -d
   - 200
 	```json
 	{
-	  "email": "xxx@mail.com"
+	  "email": "xxx@mail.com",
+	  "continue": "https://www.continue.com/"
 	}
 	```
   - 400 | 401 | 403 | 500
