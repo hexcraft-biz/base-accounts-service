@@ -8,6 +8,8 @@ Recommend this service is not publicly available. Only serve accounts-service-fr
 - [ ] System email supports multi languages.
 - [ ] /auth/v1/signup/confirmation add new param "continue".
 - [ ] /auth/v1/signup/tokeninfo response add "continue" attribute.
+- [ ] /auth/v1/forgetpassword/confirmation add new param "continue".
+- [ ] /auth/v1/forgetpassword/tokeninfo response add "continue" attribute.
 
 ## Quick start
 ```bash
