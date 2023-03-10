@@ -92,6 +92,8 @@ type signUpEmailConfirmParams struct {
 	Email         string `json:"email" binding:"required,email,min=1,max=128"`
 	VerifyPageUrl string `json:"verifyPageURL" binding:"required,url"`
 	Continue      string `json:"continue" binding:"omitempty,url"`
+	Subject       string `json:"subject" binding:"omitempty"`
+	HTML          string `json:"html" binding:"omitempty"`
 }
 
 type signUpEmailConfirmResp struct {
@@ -143,7 +145,15 @@ func (ctrl *Auth) SignUpEmailConfirm() gin.HandlerFunc {
 		vals.Add("token", tokenString)
 		realVerifyPageURI := uri.Scheme + "://" + uri.Host + uri.Path + "?" + vals.Encode()
 
-		tmpl, _ := template.New("email").Parse(getEmailTplHTML())
+		// TODO
+		// tmpl, _ := template.New("email").Parse(getEmailTplHTML())
+		html := ""
+		if params.HTML != "" {
+			html = params.HTML
+		} else {
+			html = getEmailTplHTML()
+		}
+		tmpl, _ := template.New("email").Parse(html)
 		var tpl bytes.Buffer
 
 		tmpl.Execute(&tpl, struct {
