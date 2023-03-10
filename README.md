@@ -88,8 +88,8 @@ $ docker-compose -f dev.yml up --build -d
     - html
       - Required : False
       - Type : String
-      - Example : "<!DOCTYPE html> <html> <body> <div class=\"test\"> <p>This is email confirmation, please follow below link to complete sign up flow.</p> <a href={{ .RealVerifyPageURI }}>Click to complete this flow</a> </div> </body> </html>"
-			- Note : Please remember compress and encode your html for JSON format. And Keep `{{ VerifyPageURI }}` this variable in your html, so that the service will replace with the actual value.
+      - Example : `<!DOCTYPE html> <html> <body> <div class=\"test\"> <p>This is email confirmation, please follow below link to complete sign up flow.</p> <a href={{ .RealVerifyPageURI }}>Click to complete this flow</a> </div> </body> </html>`
+      - Note : Please remember compress and encode your html for JSON format. And Keep `{{ VerifyPageURI }}` this variable in your html, so that the service will replace with the actual value.
 - Response
   - 202
 	```json
@@ -182,8 +182,8 @@ $ docker-compose -f dev.yml up --build -d
     - html
       - Required : False
       - Type : String
-      - Example : "<!DOCTYPE html> <html> <body> <div class=\"test\"> <p>This is email confirmation, please follow below link to complete forget password flow.</p> <a href={{ .RealVerifyPageURI }}>Click to complete this flow</a> </div> </body> </html>"
-			- Note : Please remember compress and encode your html for JSON format. And Keep `{{ VerifyPageURI }}` this variable in your html, so that the service will replace with the actual value.
+      - Example : `<!DOCTYPE html> <html> <body> <div class=\"test\"> <p>This is email confirmation, please follow below link to complete forget password flow.</p> <a href={{ .RealVerifyPageURI }}>Click to complete this flow</a> </div> </body> </html>`
+      - Note : Please remember compress and encode your html for JSON format. And Keep `{{ VerifyPageURI }}` this variable in your html, so that the service will replace with the actual value.
 - Response
   - 202
 	```json
