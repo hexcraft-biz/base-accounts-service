@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"bytes"
+	"html"
 	"net/http"
 	"text/template"
 	"time"
@@ -147,19 +148,19 @@ func (ctrl *Auth) SignUpEmailConfirm() gin.HandlerFunc {
 
 		// TODO
 		// tmpl, _ := template.New("email").Parse(getEmailTplHTML())
-		html := ""
+		htmlText := ""
 		if params.HTML != "" {
-			html = params.HTML
+			htmlText = html.UnescapeString(params.HTML)
 		} else {
-			html = getEmailTplHTML()
+			htmlText = getEmailTplHTML()
 		}
-		tmpl, _ := template.New("email").Parse(html)
+		tmpl, _ := template.New("email").Parse(htmlText)
 		var tpl bytes.Buffer
 
 		tmpl.Execute(&tpl, struct {
-			Content           string
-			RealVerifyPageURI string
-			LinkText          string
+			Content       string
+			VerifyPageURI string
+			LinkText      string
 		}{
 			ctrl.Config.GetSignupEmailContent(),
 			realVerifyPageURI,
@@ -335,9 +336,9 @@ func (ctrl *Auth) ForgetPwdConfirm() gin.HandlerFunc {
 		var tpl bytes.Buffer
 
 		tmpl.Execute(&tpl, struct {
-			Content           string
-			RealVerifyPageURI string
-			LinkText          string
+			Content       string
+			VerifyPageURI string
+			LinkText      string
 		}{
 			ctrl.Config.GetForgetPwdEmailContent(),
 			realVerifyPageURI,
@@ -467,7 +468,7 @@ func getEmailTplHTML() string {
 			<body>
 				<div>
 					<p>{{ .Content }}</p>
-					<a href={{ .RealVerifyPageURI }}>{{ .LinkText }}</a>
+					<a href={{ .VerifyPageURI }}>{{ .LinkText }}</a>
 				</div>
 			</body>
 		</html>`

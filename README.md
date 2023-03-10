@@ -88,7 +88,7 @@ $ docker-compose -f dev.yml up --build -d
     - html
       - Required : False
       - Type : String
-      - Example : `<!DOCTYPE html> <html> <body> <div class=\"test\"> <p>This is email confirmation, please follow below link to complete sign up flow.</p> <a href={{ .RealVerifyPageURI }}>Click to complete this flow</a> </div> </body> </html>`
+      - Example : `&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;body&gt; &lt;div class=&quot;test&quot;&gt; &lt;p&gt;This is email confirmation, please follow below link to complete sign up flow.&lt;/p&gt; &lt;a href={{ .VerifyPageURI }}&gt;Click to complete this flow&lt;/a&gt; &lt;/div&gt; &lt;/body&gt; &lt;/html&gt;`
       - Note : Please remember compress and encode your html for JSON format. And Keep `{{ VerifyPageURI }}` this variable in your html, so that the service will replace with the actual value.
 - Response
   - 202
@@ -182,7 +182,7 @@ $ docker-compose -f dev.yml up --build -d
     - html
       - Required : False
       - Type : String
-      - Example : `<!DOCTYPE html> <html> <body> <div class=\"test\"> <p>This is email confirmation, please follow below link to complete forget password flow.</p> <a href={{ .RealVerifyPageURI }}>Click to complete this flow</a> </div> </body> </html>`
+      - Example : `&lt;!DOCTYPE html&gt; &lt;html&gt; &lt;body&gt; &lt;div class=\&quot;test\&quot;&gt; &lt;p&gt;This is email confirmation, please follow below link to complete forget password flow.&lt;/p&gt; &lt;a href={{ .VerifyPageURI }}&gt;Click to complete this flow&lt;/a&gt; &lt;/div&gt; &lt;/body&gt; &lt;/html&gt;`
       - Note : Please remember compress and encode your html for JSON format. And Keep `{{ VerifyPageURI }}` this variable in your html, so that the service will replace with the actual value.
 - Response
   - 202
