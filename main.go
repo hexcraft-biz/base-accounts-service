@@ -34,6 +34,7 @@ type Env struct {
 	SMTPUsername           string
 	SMTPPassword           string
 	SMTPSender             string
+	SMTPSenderName         string
 	SignupEmailSubject     string
 	SignupEmailContent     string
 	SignupEmailLinkText    string
@@ -85,6 +86,12 @@ func FetchEnv() (*Env, error) {
 			env.SMTPSender = os.Getenv("SMTP_SENDER")
 		} else {
 			return nil, errors.New("Invalid environment variable : SMTP_SENDER")
+		}
+
+		if os.Getenv("SMTP_SENDER_NAME") != "" {
+			env.SMTPSenderName = os.Getenv("SMTP_SENDER_NAME")
+		} else {
+			return nil, errors.New("Invalid environment variable : SMTP_SENDER_NAME")
 		}
 
 		if os.Getenv("SIGNUP_EMAIL_SUBJECT") != "" {
@@ -192,6 +199,10 @@ func (cfg *Config) GetSMTPPassword() string {
 
 func (cfg *Config) GetSMTPSender() string {
 	return cfg.Env.SMTPSender
+}
+
+func (cfg *Config) GetSMTPSenderName() string {
+	return cfg.Env.SMTPSenderName
 }
 
 func (cfg *Config) GetSignupEmailSubject() string {
