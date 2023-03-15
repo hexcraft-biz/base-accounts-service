@@ -175,6 +175,7 @@ func (ctrl *Auth) SignUpEmailConfirm() gin.HandlerFunc {
 			ctrl.Config.GetSMTPPassword(),
 		)
 		email.SendHTML(
+			ctrl.Config.GetSMTPSenderName(),
 			ctrl.Config.GetSMTPSender(),
 			[]string{params.Email},
 			ctrl.Config.GetSignupEmailSubject(),
@@ -353,6 +354,7 @@ func (ctrl *Auth) ForgetPwdConfirm() gin.HandlerFunc {
 			ctrl.Config.GetSMTPPassword(),
 		)
 		email.SendHTML(
+			ctrl.Config.GetSMTPSenderName(),
 			ctrl.Config.GetSMTPSender(),
 			[]string{params.Email},
 			ctrl.Config.GetForgetPwdEmailSubject(),
