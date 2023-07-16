@@ -1,5 +1,5 @@
 # base-accounts-service
-The base-accounts-service for building a customer accounts system.
+The base-accounts-service for building a customer accounts system.  
 Accounts service handles authentication, registration, forgotten password, and more.  
 You can inherit from base-accounts-service and extend and develop the accounts system you need.  
 Recommend this service is not publicly available. Only serve accounts-service-frontend.
